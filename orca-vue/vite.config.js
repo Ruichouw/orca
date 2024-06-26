@@ -17,6 +17,16 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()]
     })
   ],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://api.longfish.site', // 目标地址http://frium.top:1111
+        changeOrigin: true, // 是否换源， true 换源
+        rewrite: (path) => path.replace(/^\/api/, '') // 替换
+      }
+    }
+  },
+
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

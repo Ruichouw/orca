@@ -3,13 +3,13 @@ import axios from 'axios'
 import router from '@/router'
 // import { ElMessage } from 'element-plus'
 
-const baseURL = 'https://api.longfish.site'
+const baseURL = '/api'
 
 const instance = axios.create({
   baseURL,
   timeout: 100000
 })
-
+// axios.defaults.baseURL = ''
 instance.interceptors.request.use(
   (config) => {
     const userStore = useUserStore()

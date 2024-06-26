@@ -16,14 +16,12 @@ const handleRowClick = (row, column) => {
   // 假设你的详情页路由是 '/detail/:id'，并且你的行数据中包含 'id' 属性
   router.push(`/detail/${row.id}`)
 }
-const getList = async() => {
+const getList = async () => {
   // const res = await getListAPI('/')
   // list.value = res.data.data
   // loading.value = false
   const intervalId = setInterval(async () => {
     if (detailStore.flag) {
-      console.log('可以了')
-
       const res = await getListAPI('/')
       list.value = res.data.data
       clearInterval(intervalId)
@@ -37,7 +35,7 @@ getList()
 const contextMenuVisible = ref(false)
 const contextMenuTop = ref(0)
 const contextMenuLeft = ref(0)
-const contextMenuHeight = 500 // 假设菜单高度为200px
+
 const contextMenuWeight = 100 // 假设菜单高度为200px
 const id = ref(0)
 const currentRow = ref(null)
@@ -68,7 +66,8 @@ function deleteMenuItemClick(option) {
 }
 const rename = async () => {
   renameAPI({
-    id
+    id: detailStore.idRow,
+    title: 'cnm'
   })
 }
 // 监听文档点击事件以隐藏菜单（如果需要的话）
