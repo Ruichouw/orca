@@ -17,7 +17,7 @@ export default {
   },
 
   setup() {
-    const content = ref('默认文字 hello wor')
+    const content = ref('默认文字')
 
     const tiny = reactive({
       apiKey: 'qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc', //https://github.com/tinymce/tinymce-vue/blob/main/src/demo/views/Iframe.vue
