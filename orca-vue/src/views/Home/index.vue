@@ -7,6 +7,7 @@ const list = ref([])
 const loading = ref(true)
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+
 const router = useRouter()
 const handleRowClick = (row, column) => {
   // row 是被点击的行的数据
@@ -16,17 +17,15 @@ const handleRowClick = (row, column) => {
   // 假设你的详情页路由是 '/detail/:id'，并且你的行数据中包含 'id' 属性
   router.push(`/detail/${row.id}`)
 }
+
+// 解决详情数据还没上传，首页列表就直接渲染的延迟问题
 const getList = async () => {
-  // const res = await getListAPI('/')
-  // list.value = res.data.data
-  // loading.value = false
   const intervalId = setInterval(async () => {
-    if (detailStore.flag) {
-      const res = await getListAPI('/')
-      list.value = res.data.data
-      clearInterval(intervalId)
-      loading.value = false
-    }
+    const res = await getListAPI('/')
+    console.log(res)
+    list.value = res.data.data
+    clearInterval(intervalId)
+    loading.value = false
   }, 2000)
 }
 
