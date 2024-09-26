@@ -6,3 +6,4 @@ export default pinia
 // export * from './modules/count'
 export * from './modules/user.js'
 export * from './modules/detail.js'
+export * from './modules/document.js'

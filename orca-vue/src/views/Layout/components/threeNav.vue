@@ -62,7 +62,7 @@
     <!-- 新建end -->
 
     <!-- 导入start -->
-    <div class="import nav-sub flex">
+    <div class="import nav-sub flex" @click="visible = true">
       <img
         src="@/assets/icons/import.png"
         alt=""
@@ -78,6 +78,28 @@
         style="width: 24px; height: 24px"
       />
     </div>
+
+    <el-dialog v-model="visible" :show-close="false" width="500">
+      <template #header="{ close, titleId, titleClass }">
+        <div class="my-header">
+          <h4 :id="titleId" :class="titleClass">导入文档</h4>
+          <el-button type="danger" @click="close">
+            <el-icon class="el-icon--left">
+              <CircleCloseFilled />
+            </el-icon>
+            Close
+          </el-button>
+        </div>
+      </template>
+      <input type="file" @change="handleFileChange" accept=".docx" />
+      <el-button
+        type="primary"
+        @click="$router.push('/impodocum')"
+        class="comfirm"
+      >
+        确定
+      </el-button>
+    </el-dialog>
     <!-- 导入end -->
 
     <!-- 模板start -->
@@ -102,10 +124,45 @@
 </template>
 
 <script setup>
+// 新建的弹框逻辑
 import { ref } from 'vue'
 const showDrop = ref(false)
 const handleOut = () => {
   showDrop.value = false
+}
+
+// 导入的弹框逻辑
+import { CircleCloseFilled } from '@element-plus/icons-vue'
+const visible = ref(false)
+
+const documentContent = ref(null)
+
+// 接收导入的文档并进行处理
+import mammoth from 'mammoth'
+import { useDocumentStore } from '@/stores'
+import router from '@/router'
+const documentStore = useDocumentStore()
+const handleFileChange = (event) => {
+  const file = event.target.files[0]
+  console.log(file)
+  if (!file) return
+
+  const reader = new FileReader()
+  reader.onload = async (e) => {
+    try {
+      const { value: html } = await mammoth.convertToHtml({
+        arrayBuffer: e.target.result
+      })
+      documentContent.value = html
+
+      documentStore.docuContent = html
+      console.log(documentStore.docuContent)
+    } catch (error) {
+      console.error('Error converting Word document:', error)
+    }
+  }
+
+  reader.readAsArrayBuffer(file)
 }
 </script>
 
@@ -172,5 +229,16 @@ const handleOut = () => {
       }
     }
   }
+}
+.my-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 16px;
+}
+.comfirm{
+  width: 80px;
+  position: absolute;
+  right: 20px;
 }
 </style>

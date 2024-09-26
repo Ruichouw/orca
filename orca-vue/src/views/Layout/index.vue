@@ -5,7 +5,7 @@
       <el-main>
         <rightHeader></rightHeader>
         <threeNav></threeNav>
-        <router-view></router-view>
+        <router-view :key="$route.fullPath"></router-view>
       </el-main>
     </el-container>
   </el-container>

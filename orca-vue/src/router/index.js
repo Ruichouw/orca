@@ -31,6 +31,10 @@ const router = createRouter({
       component: () => import('@/views/NewDocum/index.vue')
     },
     {
+      path: '/impodocum',
+      component: () => import('@/views/importDocum/index.vue')
+    },
+    {
       path: '/login',
       component: () => import('@/views/Login/index.vue')
     },

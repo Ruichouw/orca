@@ -7,9 +7,10 @@
 <script>
 import Editor from '@tinymce/tinymce-vue'
 import { reactive, ref, toRefs } from 'vue'
-import { useDetailStore } from '@/stores'
-const detailStore = useDetailStore()
 import { CreateNewAPI } from '@/api/detail'
+
+import { useDocumentStore } from '@/stores'
+const documentStore = useDocumentStore()
 export default {
   name: 'About',
   components: {
@@ -17,7 +18,14 @@ export default {
   },
 
   setup() {
-    const content = ref('')
+    const content = ref('默认文字 hello world')
+    // 文章详情回显
+    const getDetail = async () => {
+      console.log(documentStore.docuContent)
+      content.value = documentStore.docuContent
+      console.log(content.value)
+    }
+    getDetail()
 
     const tiny = reactive({
       apiKey: 'qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc', //https://github.com/tinymce/tinymce-vue/blob/main/src/demo/views/Iframe.vue
@@ -107,7 +115,6 @@ export default {
   },
   beforeUnmount() {
     console.log(this.content)
-   
     // 创建一个新的 DOMParser 实例
     const parser = new DOMParser()
 
