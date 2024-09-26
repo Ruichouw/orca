@@ -1,5 +1,6 @@
 <template>
   <div class="nav flex">
+    <!-- 新建start -->
     <div
       class="new nav-sub flex"
       style="position: relative"
@@ -58,7 +59,9 @@
         </div>
       </div>
     </div>
+    <!-- 新建end -->
 
+    <!-- 导入start -->
     <div class="import nav-sub flex">
       <img
         src="@/assets/icons/import.png"
@@ -75,6 +78,9 @@
         style="width: 24px; height: 24px"
       />
     </div>
+    <!-- 导入end -->
+
+    <!-- 模板start -->
     <div class="model nav-sub flex">
       <img
         src="@/assets/icons/model.png"
@@ -91,6 +97,7 @@
         style="width: 24px; height: 24px"
       />
     </div>
+    <!-- 模板end -->
   </div>
 </template>
 

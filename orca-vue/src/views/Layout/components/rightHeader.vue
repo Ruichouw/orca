@@ -57,12 +57,25 @@
   </el-header>
 </template>
 
-<script setup></script>
+<script setup>
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const handleCommand = async (key) => {
+  if (key === 'logout') {
+    await ElMessageBox.confirm('你确认要退出吗?', '温馨提示', {
+      confirmButtonText: '确认',
+      cancelButtonText: '取消',
+      type: 'warning'
+    })
+    router.push('/login')
+  } else {
+    router.push(`/user/${key}`)
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .el-header {
-  padding: 0 20px 0 10px;
-
   .left {
     width: 48px;
     height: 34px;
